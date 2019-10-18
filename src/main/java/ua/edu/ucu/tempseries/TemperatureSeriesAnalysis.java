@@ -87,7 +87,7 @@ public class TemperatureSeriesAnalysis {
         int closestindr = 0;
         int closestindl = 0;
         for (int i = 0; i < size; i++){
-            if (data[i] < 0 && Math.abs(data[i]) < closestl) {
+            if (data[i] < 0 && Math.abs(data[i]) < Math.abs(closestl)) {
                 closestl = data[i];
                 closestindl = i;
             }
