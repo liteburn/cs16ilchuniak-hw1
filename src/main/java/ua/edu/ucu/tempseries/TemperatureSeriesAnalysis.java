@@ -6,9 +6,11 @@ public class TemperatureSeriesAnalysis {
 
     private double[] data;
     private int size;
-
+    private int standartLen = 8;
+    private int minTemperature = -273;
+    
     public TemperatureSeriesAnalysis() {
-        data = new double[8];
+        data = new double[standartLen];
         size = 0;
     }
 
@@ -17,7 +19,7 @@ public class TemperatureSeriesAnalysis {
         data = new double[temperatureSeries.length];
         for (double i : temperatureSeries) {
             data[k] = i;
-            if (i < -273) {
+            if (i < minTemperature) {
                 throw new InputMismatchException();
             }
             k++;
@@ -109,8 +111,10 @@ public class TemperatureSeriesAnalysis {
         }
         double closest = data[0];
         for (int i = 0; i < size; i++) {
-            if (Math.abs(data[i] - tempValue) <= Math.abs(closest - tempValue)) {
-                if (Math.abs(data[i] - tempValue) < Math.abs(closest - tempValue)) {
+            double valFirst = Math.abs(data[i] - tempValue);
+            double valSecond = Math.abs(closest - tempValue);
+            if (valFirst <= valSecond) {
+                if (valFirst < valSecond) {
                     closest = data[i];
                     System.out.println(closest);
                 }
@@ -171,22 +175,22 @@ public class TemperatureSeriesAnalysis {
     public int addTemps(double... temps) {
         int len = data.length;
         if (len == 0) {
-            len = 8;
+            len = standartLen;
         }
         while (len < temps.length + size) {
             len *= 2;
         }
-        double[] data1 = new double[len];
+        double[] newData = new double[len];
         int k = 0;
         for (int i = 0; i < size; i++) {
-            data1[k] = data[i];
+            newData[k] = data[i];
             k++;
         }
         for (int i = 0; i < temps.length; i++) {
-            data1[k] = temps[i];
+            newData[k] = temps[i];
             k++;
         }
-        data = data1;
+        data = newData;
         size += temps.length;
         return size;
     }
