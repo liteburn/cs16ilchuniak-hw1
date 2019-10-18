@@ -6,6 +6,7 @@ public class TemperatureSeriesAnalysis {
 
     private double[] data;
     private int size;
+
     public TemperatureSeriesAnalysis() {
         data = new double[8];
         size = 0;
@@ -14,25 +15,25 @@ public class TemperatureSeriesAnalysis {
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         int k = 0;
         data = new double[temperatureSeries.length];
-        for (double i: temperatureSeries){
+        for (double i : temperatureSeries) {
             data[k] = i;
-            if (i < -273){
+            if (i < -273) {
                 throw new InputMismatchException();
             }
             k++;
         }
-        size = data.length;
+        size = temperatureSeries.length;
     }
 
     public double average() {
-        if (size == 0){
+        if (size == 0) {
             throw new IllegalArgumentException();
         }
         double total = 0;
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             total += data[i];
         }
-        return total/size;
+        return total / size;
     }
 
     public double deviation() {
@@ -40,16 +41,16 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException();
         }
         double total = 0;
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             total += data[i];
         }
-        double avg = total/size;
+        double avg = total / size;
         double totaldif = 0;
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             totaldif += Math.abs(avg - data[i]);
         }
 
-        return totaldif/size;
+        return totaldif / size;
     }
 
     public double min() {
@@ -57,8 +58,8 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException();
         }
         double min = data[0];
-        for (int i = 0; i < size; i++){
-            if (min > data[i]){
+        for (int i = 0; i < size; i++) {
+            if (min > data[i]) {
                 min = data[i];
             }
         }
@@ -70,8 +71,8 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException();
         }
         double max = data[0];
-        for (int i = 0; i < size; i++){
-            if (max < data[i]){
+        for (int i = 0; i < size; i++) {
+            if (max < data[i]) {
                 max = data[i];
             }
         }
@@ -86,20 +87,18 @@ public class TemperatureSeriesAnalysis {
         double closestl = data[0];
         int closestindr = 0;
         int closestindl = 0;
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             if (data[i] < 0 && Math.abs(data[i]) < Math.abs(closestl)) {
                 closestl = data[i];
                 closestindl = i;
-            }
-            else if (data[i] >= 0 && data[i] < closestr){
+            } else if (data[i] >= 0 && data[i] <= closestr) {
                 closestr = data[i];
                 closestindr = i;
             }
         }
-        if (Math.abs(data[closestindl]) < Math.abs(data[closestindr])){
+        if (Math.abs(data[closestindl]) < Math.abs(data[closestindr])) {
             return data[closestindl];
-        }
-        else{
+        } else {
             return data[closestindr];
         }
     }
@@ -108,28 +107,19 @@ public class TemperatureSeriesAnalysis {
         if (size == 0) {
             throw new IllegalArgumentException();
         }
-        double closestr = Math.abs(data[0]);
-        double closestl = data[0];
-        int closestindr = 0;
-        int closestindl = 0;
-        for (int i = 0; i < size; i++){
-            if (data[i] < tempValue && Math.abs(data[i] - tempValue) < Math.abs(closestl - tempValue)) {
-                System.out.println(data[i]);
-                closestl = data[i];
-                closestindl = i;
-            }
-            else if (data[i] >= tempValue && Math.abs(data[i] - tempValue) <= Math.abs(closestr - tempValue)){
-
-                closestr = data[i];
-                closestindr = i;
+        double closest = data[0];
+        for (int i = 0; i < size; i++) {
+            if (Math.abs(data[i] - tempValue) <= Math.abs(closest - tempValue)) {
+                if (Math.abs(data[i] - tempValue) < Math.abs(closest - tempValue)) {
+                    closest = data[i];
+                    System.out.println(closest);
+                }
+                if (data[i] > closest) {
+                    closest = data[i];
+                }
             }
         }
-        if (Math.abs(closestl - tempValue) < Math.abs(closestr - tempValue)){
-            return data[closestindl];
-        }
-        else{
-            return data[closestindr];
-        }
+        return closest;
     }
 
     public double[] findTempsLessThen(double tempValue) {
@@ -137,15 +127,15 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException();
         }
         int length = 0;
-        for (double i: data){
-            if (i < tempValue){
+        for (double i : data) {
+            if (i < tempValue) {
                 length += 1;
             }
         }
         double[] temperatures = new double[length];
         int k = 0;
-        for (int i = 0; i < size; i++){
-            if (data[i] < tempValue){
+        for (int i = 0; i < size; i++) {
+            if (data[i] < tempValue) {
                 temperatures[k] = data[i];
                 k++;
             }
@@ -158,15 +148,15 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException();
         }
         int length = 0;
-        for (int i = 0; i < size; i++){
-            if (data[i] >= tempValue){
+        for (int i = 0; i < size; i++) {
+            if (data[i] >= tempValue) {
                 length += 1;
             }
         }
         double[] temperatures = new double[length];
         int k = 0;
-        for (int i = 0; i < size; i++){
-            if (data[i] >= tempValue){
+        for (int i = 0; i < size; i++) {
+            if (data[i] >= tempValue) {
                 temperatures[k] = data[i];
                 k++;
             }
@@ -180,17 +170,20 @@ public class TemperatureSeriesAnalysis {
 
     public int addTemps(double... temps) {
         int len = data.length;
-        while (len < temps.length){
-            len *=2;
+        if (len == 0) {
+            len = 8;
+        }
+        while (len < temps.length + size) {
+            len *= 2;
         }
         double[] data1 = new double[len];
         int k = 0;
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             data1[k] = data[i];
             k++;
         }
-        for (int i = 0; i < size; i++){
-            data1[k] = data[i];
+        for (int i = 0; i < temps.length; i++) {
+            data1[k] = temps[i];
             k++;
         }
         data = data1;
