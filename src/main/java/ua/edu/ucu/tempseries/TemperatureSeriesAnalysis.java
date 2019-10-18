@@ -4,8 +4,8 @@ import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
 
-    private static double[] data;
-    private static int size;
+    private double[] data;
+    private int size;
     public TemperatureSeriesAnalysis() {
         data = new double[8];
         size = 0;
