@@ -9,7 +9,7 @@ public class TempSummaryStatistics {
         throw new IllegalArgumentException();
     }  
     public TempSummaryStatistics(double a, double d, double min, double max){
-        this.avgTemp =a;
+        this.avgTemp = a;
         this.devTemp = d;
         this.maxTemp = max;
         this.minTemp = min;
