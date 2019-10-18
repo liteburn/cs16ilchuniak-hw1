@@ -5,9 +5,11 @@ public class TempSummaryStatistics {
     private final double devTemp;
     private final double minTemp;
     private final double maxTemp;
+    
     public TempSummaryStatistics(){
         throw new IllegalArgumentException();
     }  
+    
     public TempSummaryStatistics(double a, double d, double min, double max){
         this.avgTemp = a;
         this.devTemp = d;
