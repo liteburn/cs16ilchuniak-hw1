@@ -7,17 +7,15 @@ public class TemperatureSeriesAnalysis {
     private double[] data;
     private int size;
     private int standartLen = 8;
-    private int minTemperature;
+    private static int minTemperature = -273;
     
     public TemperatureSeriesAnalysis() {
         data = new double[standartLen];
         size = 0;
-        minTemperature = -273;
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         int k = 0;
-        minTemperature = -273;
         data = new double[temperatureSeries.length];
         for (double i : temperatureSeries) {
             data[k] = i;
