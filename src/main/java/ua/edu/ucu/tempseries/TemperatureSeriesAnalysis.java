@@ -12,12 +12,12 @@ public class TemperatureSeriesAnalysis {
     public TemperatureSeriesAnalysis() {
         data = new double[standartLen];
         size = 0;
-        minTemperature = -273
+        minTemperature = -273;
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         int k = 0;
-        minTemperature = -273
+        minTemperature = -273;
         data = new double[temperatureSeries.length];
         for (double i : temperatureSeries) {
             data[k] = i;
